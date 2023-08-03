@@ -19,9 +19,5 @@
     <ProjectReference Include="..\OptiMinds.Contracts\OptiMinds.Contracts.csproj" />
     <ProjectReference Include="..\OptiMinds.Domain\OptiMinds.Domain.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Employees\Queries\" />
-  </ItemGroup>
 	
 </Project>

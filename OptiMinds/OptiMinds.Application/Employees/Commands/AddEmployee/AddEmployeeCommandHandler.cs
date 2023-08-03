@@ -1,4 +1,5 @@
 ﻿using ErrorOr;
+using MapsterMapper;
 using MediatR;
 using OptiMinds.Application.Common.Persistance;
 using OptiMinds.Contracts.DTOs.Responses.Employee;
@@ -12,15 +13,18 @@ namespace OptiMinds.Application.Employees.Commands.AddEmployee
         private readonly IRepository<Employee> _employeeRepository;
 		private readonly IRepository<Project> _projectRepository;
         private readonly IRepository<EmployeeProject> _employeeProjectRepository;
+        private readonly IMapper _mapper;
 
 		public AddEmployeeCommandHandler(
 			IRepository<Employee> employeeRepository,
 			IRepository<Project> projectRepository,
-			IRepository<EmployeeProject> employeeProjectRepository)
+			IRepository<EmployeeProject> employeeProjectRepository,
+			IMapper mapper)
 		{
 			_employeeRepository = employeeRepository;
 			_projectRepository = projectRepository;
 			_employeeProjectRepository = employeeProjectRepository;
+			_mapper = mapper;
 		}
 
 		public async Task<ErrorOr<AddEmployeeDto>> Handle(AddEmployeeCommand request, CancellationToken cancellationToken)
@@ -35,12 +39,7 @@ namespace OptiMinds.Application.Employees.Commands.AddEmployee
 				return Errors.Project.ProjectDontExist;
 			}
 
-			var employee = new Employee
-            {
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-                EmployeeType = request.EmployeeType,
-            };
+            var employee = _mapper.Map<Employee>(request);
 
             await _employeeRepository.AddAsync(employee);
 

@@ -19,9 +19,5 @@
   <ItemGroup>
     <ProjectReference Include="..\OptiMinds.Application\OptiMinds.Application.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Persistance\Configuration\" />
-  </ItemGroup>
 	
 </Project>

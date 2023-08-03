@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OptiMinds.Domain.Entities;
+using OptiMinds.Infrastructure.Persistance.Configuration;
 
 namespace OptiMinds.Infrastructure.Persistance
 {

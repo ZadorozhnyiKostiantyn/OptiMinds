@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using OptiMinds.Domain.Entities;
 
-namespace OptiMinds.Domain.Entities
+namespace OptiMinds.Infrastructure.Persistance.Configuration
 {
 	public class ProjectConfiguration : IEntityTypeConfiguration<Project>
 	{

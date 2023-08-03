@@ -1,4 +1,5 @@
 ﻿using ErrorOr;
+using MapsterMapper;
 using MediatR;
 using OptiMinds.Application.Common.Persistance;
 using OptiMinds.Contracts.DTOs.Responses.ProjectTask;
@@ -13,18 +14,21 @@ namespace OptiMinds.Application.ProjectTasks.Commands.CreateProjectTask
         private readonly IRepository<ProjectTask> _projectTaskRepository;
         private readonly IRepository<Project> _projectRepository;
         private readonly IRepository<Employee> _employeeRepository;
+        private readonly IMapper _mapper;
 
-        public CreateProjectTaskCommandHandler(
-            IRepository<ProjectTask> projectTaskRepository,
-            IRepository<Project> projectRepository,
-            IRepository<Employee> employeeRepository)
-        {
-            _projectTaskRepository = projectTaskRepository;
-            _projectRepository = projectRepository;
-            _employeeRepository = employeeRepository;
-        }
+		public CreateProjectTaskCommandHandler(
+			IRepository<ProjectTask> projectTaskRepository,
+			IRepository<Project> projectRepository,
+			IRepository<Employee> employeeRepository,
+			IMapper mapper)
+		{
+			_projectTaskRepository = projectTaskRepository;
+			_projectRepository = projectRepository;
+			_employeeRepository = employeeRepository;
+			_mapper = mapper;
+		}
 
-        public async Task<ErrorOr<CreateProjectTaskDto>> Handle(CreateProjectTaskCommand request, CancellationToken cancellationToken)
+		public async Task<ErrorOr<CreateProjectTaskDto>> Handle(CreateProjectTaskCommand request, CancellationToken cancellationToken)
         {
             // Validate the project exist
             if (await _projectRepository.FirstOrDefaultAsync(p => p.Id == request.ProjectId) is null)
@@ -41,17 +45,7 @@ namespace OptiMinds.Application.ProjectTasks.Commands.CreateProjectTask
                 }
             }
 
-            var task = new ProjectTask
-            {
-                Title = request.Title,
-                Status = request.Status,
-                Type = request.Type,
-                Description = request.Description,
-                Deadline = request.Deadline,
-                EstimateInHour = request.EstimateInHour,
-                EmployeeId = request.EmployeeId,
-                ProjectId = request.ProjectId,
-            };
+            var task = _mapper.Map<ProjectTask>(request);
 
             await _projectTaskRepository.AddAsync(task);
 
