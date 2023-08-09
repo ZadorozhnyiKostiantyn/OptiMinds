@@ -1,10 +1,8 @@
 using OptiMinds.Api;
-using OptiMinds.Api.Common.Mapping;
 using OptiMinds.Application;
 using OptiMinds.Infrastructure;
+using OptiMinds.Infrastructure.Cors;
 using OptiMinds.Infrastructure.Persistance;
-
-
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,7 +27,7 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
-app.UseCors("CorsPolicy");
+app.UseCors(CorsPolicySettings.SectionName);
 
 app.UseAuthorization();
 
