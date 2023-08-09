@@ -10,6 +10,15 @@ public static class DependencyInjection
 	{
 		services.AddControllers();
 		services.AddSwaggerGen();
+		services.AddCors(options =>
+		{
+			options.AddPolicy("CorsPolicy", policy =>
+			{
+				policy.WithOrigins("*");
+				policy.WithMethods("GET", "POST", "PUT", "DELETE");
+				policy.WithHeaders("*");
+			});
+		});
 		services.AddSingleton<ProblemDetailsFactory, OptiMindsProblemDetailsFactory>();
 		services.AddMapping();
 		return services;

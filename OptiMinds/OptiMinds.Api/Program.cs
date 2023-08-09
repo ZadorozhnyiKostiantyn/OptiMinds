@@ -4,6 +4,9 @@ using OptiMinds.Application;
 using OptiMinds.Infrastructure;
 using OptiMinds.Infrastructure.Persistance;
 
+
+
+
 var builder = WebApplication.CreateBuilder(args);
 {
 	// Add services to the container.
@@ -11,8 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 		.AddPresentation()
 		.AddApplication()
 		.AddInfrastructure(builder.Configuration);
-}
 
+}
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,6 +26,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseRouting();
+
+app.UseCors("CorsPolicy");
 
 app.UseAuthorization();
 
