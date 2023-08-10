@@ -1,6 +1,4 @@
-﻿using OptiMinds.Domain.Enums;
-
-namespace OptiMinds.Contracts.DTOs.Requests.Project
+﻿namespace OptiMinds.Contracts.DTOs.Requests.Project
 {
 	public record CreateProjectRequest(
 		string Name,

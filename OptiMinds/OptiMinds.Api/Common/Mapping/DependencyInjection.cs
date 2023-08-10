@@ -28,15 +28,15 @@ namespace OptiMinds.Api.Common.Mapping
 
 			// CreateProjectCommand Configuration 
 			config.NewConfig<CreateProjectRequest, CreateProjectCommand>()
-				.Map(dest => dest.StartDate, src => DateTime.FromFileTime(Convert.ToInt64(src.StartDate)))
-				.Map(dest => dest.EndDate, src => DateTime.FromFileTime(Convert.ToInt64(src.EndDate)))
+				.Map(dest => dest.StartDate, src => DateTimeOffset.FromUnixTimeMilliseconds(Convert.ToInt64(src.StartDate)).DateTime)
+				.Map(dest => dest.EndDate, src => DateTimeOffset.FromUnixTimeMilliseconds(Convert.ToInt64(src.EndDate)).DateTime)
 				.Map(dest => dest.OverallStatus, src => Enum.Parse<Status>(src.OverallStatus));
 
 			// CreateProjectTaskCommand Configuration
 			config.NewConfig<CreateProjectTaskRequest, CreateProjectTaskCommand>()
 				.Map(dest => dest.Status, src => Enum.Parse<Status>(src.Status))
 				.Map(dest => dest.Type, src => Enum.Parse<TaskType>(src.Type))
-				.Map(dest => dest.Deadline, src => DateTime.FromFileTime(Convert.ToInt64(src.Deadline)));
+				.Map(dest => dest.Deadline, src => DateTimeOffset.FromUnixTimeMilliseconds(Convert.ToInt64(src.Deadline)).DateTime);
 
 			// AddEmployeeCommand Configuration 
 			config.NewConfig<AddEmployeeRequest, AddEmployeeCommand>()
@@ -45,19 +45,19 @@ namespace OptiMinds.Api.Common.Mapping
 			// CreateProjectLogCommand Configuration
 			config.NewConfig<CreateProjectLogRequest, CreateProjectLogCommand>()
 				.Map(dest => dest.Type, src => Enum.Parse<LogType>(src.Type))
-				.Map(dest => dest.CreationDate, src => DateTime.FromFileTime(Convert.ToInt64(src.CreationDate)));
+				.Map(dest => dest.CreationDate, src => DateTimeOffset.FromUnixTimeMilliseconds(Convert.ToInt64(src.CreationDate)).DateTime);
 
 			// Project Configuration
 			config.NewConfig<Project, GetProjectDto>()
-				.Map(dest => dest.StartDate, src => src.StartDate.ToFileTime().ToString())
-				.Map(dest => dest.EndDate, src => src.EndDate.ToFileTime().ToString())
+				.Map(dest => dest.StartDate, src => ((DateTimeOffset)src.StartDate).ToUnixTimeSeconds().ToString())
+				.Map(dest => dest.EndDate, src => ((DateTimeOffset)src.EndDate).ToUnixTimeMilliseconds().ToString())
 				.Map(dest => dest.OverallStatus, src => src.OverallStatus.ToString());
 
 			// Project Task Configuration
 			config.NewConfig<ProjectTask, GetProjectTaskDto>()
 				.Map(dest => dest.Status, src => src.Status.ToString())
 				.Map(dest => dest.Type, src => src.Type.ToString())
-				.Map(dest => dest.Deadline, src => src.Deadline.ToFileTime().ToString());
+				.Map(dest => dest.Deadline, src => ((DateTimeOffset)src.Deadline).ToUnixTimeMilliseconds().ToString());
 
 			// Employee Configuration 
 			config.NewConfig<Employee, GetEmployeeDto>()
@@ -66,13 +66,13 @@ namespace OptiMinds.Api.Common.Mapping
 			// Project Log Configuration 
 			config.NewConfig<ProjectLog, GetProjectLogDto>()
 				.Map(dest => dest.Type, src => src.Type.ToString())
-				.Map(dest => dest.CreationDate, src => src.CreationDate.ToFileTime().ToString());
+				.Map(dest => dest.CreationDate, src => ((DateTimeOffset)src.CreationDate).ToUnixTimeMilliseconds().ToString());
 
 			// UpdateProjectTaskCommand Configuration
 			config.NewConfig<UpdateProjectTaskRequest, UpdateProjectTaskCommand>()
 				.Map(dest => dest.Status, src => Enum.Parse<Status>(src.Status))
 				.Map(dest => dest.Type, src => Enum.Parse<TaskType>(src.Type))
-				.Map(dest => dest.Deadline, src => DateTime.FromFileTime(Convert.ToInt64(src.Deadline)));
+				.Map(dest => dest.Deadline, src => DateTimeOffset.FromUnixTimeMilliseconds(Convert.ToInt64(src.Deadline)).DateTime);
 
 
 			services.AddSingleton(config);
