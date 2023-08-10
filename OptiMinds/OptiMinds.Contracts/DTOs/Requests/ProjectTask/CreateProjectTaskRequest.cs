@@ -7,7 +7,7 @@ namespace OptiMinds.Contracts.DTOs.Requests.ProjectTask
 		string Status,
 		string Type,
 		string Description,
-		string Deadline,
+		long Deadline,
 		float EstimateInHour,
 		int? EmployeeId,
 		int ProjectId);

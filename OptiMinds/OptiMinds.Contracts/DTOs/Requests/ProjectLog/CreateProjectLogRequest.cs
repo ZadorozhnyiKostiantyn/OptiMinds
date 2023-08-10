@@ -4,7 +4,7 @@ namespace OptiMinds.Contracts.DTOs.Requests.ProjectLog
 {
 	public record CreateProjectLogRequest(
 		string Type,
-		string CreationDate,
+		long CreationDate,
 		int EmployeeId,
 		int ProjectTaskId);
 }

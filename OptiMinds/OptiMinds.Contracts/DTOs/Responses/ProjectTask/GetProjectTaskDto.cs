@@ -10,7 +10,7 @@ namespace OptiMinds.Contracts.DTOs.Responses.ProjectTask
 		public string Status { get; set; }
 		public string Type { get; set; }
 		public string Description { get; set; } = null!;
-		public string Deadline { get; set; }
+		public long Deadline { get; set; }
 		public float EstimateInHour { get; set; }
 		public GetEmployeeDto? Employee { get; set; }
 	}

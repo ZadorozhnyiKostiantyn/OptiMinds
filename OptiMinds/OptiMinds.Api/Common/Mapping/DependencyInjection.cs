@@ -28,15 +28,15 @@ namespace OptiMinds.Api.Common.Mapping
 
 			// CreateProjectCommand Configuration 
 			config.NewConfig<CreateProjectRequest, CreateProjectCommand>()
-				.Map(dest => dest.StartDate, src => DateTimeOffset.FromUnixTimeMilliseconds(Convert.ToInt64(src.StartDate)).DateTime)
-				.Map(dest => dest.EndDate, src => DateTimeOffset.FromUnixTimeMilliseconds(Convert.ToInt64(src.EndDate)).DateTime)
+				.Map(dest => dest.StartDate, src => DateTimeOffset.FromUnixTimeMilliseconds(src.StartDate).DateTime)
+				.Map(dest => dest.EndDate, src => DateTimeOffset.FromUnixTimeMilliseconds(src.EndDate).DateTime)
 				.Map(dest => dest.OverallStatus, src => Enum.Parse<Status>(src.OverallStatus));
 
 			// CreateProjectTaskCommand Configuration
 			config.NewConfig<CreateProjectTaskRequest, CreateProjectTaskCommand>()
 				.Map(dest => dest.Status, src => Enum.Parse<Status>(src.Status))
 				.Map(dest => dest.Type, src => Enum.Parse<TaskType>(src.Type))
-				.Map(dest => dest.Deadline, src => DateTimeOffset.FromUnixTimeMilliseconds(Convert.ToInt64(src.Deadline)).DateTime);
+				.Map(dest => dest.Deadline, src => DateTimeOffset.FromUnixTimeMilliseconds(src.Deadline).DateTime);
 
 			// AddEmployeeCommand Configuration 
 			config.NewConfig<AddEmployeeRequest, AddEmployeeCommand>()
@@ -45,12 +45,12 @@ namespace OptiMinds.Api.Common.Mapping
 			// CreateProjectLogCommand Configuration
 			config.NewConfig<CreateProjectLogRequest, CreateProjectLogCommand>()
 				.Map(dest => dest.Type, src => Enum.Parse<LogType>(src.Type))
-				.Map(dest => dest.CreationDate, src => DateTimeOffset.FromUnixTimeMilliseconds(Convert.ToInt64(src.CreationDate)).DateTime);
+				.Map(dest => dest.CreationDate, src => DateTimeOffset.FromUnixTimeMilliseconds(src.CreationDate).DateTime);
 
 			// Project Configuration
 			config.NewConfig<Project, GetProjectDto>()
-				.Map(dest => dest.StartDate, src => ((DateTimeOffset)src.StartDate).ToUnixTimeSeconds().ToString())
-				.Map(dest => dest.EndDate, src => ((DateTimeOffset)src.EndDate).ToUnixTimeMilliseconds().ToString())
+				.Map(dest => dest.StartDate, src => ((DateTimeOffset)src.StartDate).ToUnixTimeMilliseconds())
+				.Map(dest => dest.EndDate, src => ((DateTimeOffset)src.EndDate).ToUnixTimeMilliseconds())
 				.Map(dest => dest.OverallStatus, src => src.OverallStatus.ToString());
 
 			// Project Task Configuration

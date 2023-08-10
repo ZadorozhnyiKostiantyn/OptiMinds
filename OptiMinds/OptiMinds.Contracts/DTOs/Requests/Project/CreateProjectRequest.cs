@@ -2,8 +2,8 @@
 {
 	public record CreateProjectRequest(
 		string Name,
-		string StartDate,
-		string EndDate,
+		long StartDate,
+		long EndDate,
 		string OverallStatus,
 		float TotalBudget,
 		float SpendBudget);

@@ -8,7 +8,7 @@ namespace OptiMinds.Contracts.DTOs.Responses.ProjectLog
 	{
 		public int Id { get; set; }
 		public string? Type { get; set; }
-		public string? CreationDate { get; set; }
+		public long? CreationDate { get; set; }
 		public string Description { get; set; } = null!;
 		public GetEmployeeDto Employee { get; set; }
 		public GetProjectTaskDto ProjectTask { get; set; }
